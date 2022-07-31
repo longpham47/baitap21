@@ -1,6 +1,7 @@
 
 
 var dsnv = new DanhSachNV();
+// var validation = new Validation();
 
 function getELE(id) {
     return document.getElementById(id);
@@ -33,13 +34,18 @@ function themNhanVien() {
     var chucvu = getELE("chucvu").value;
     var gioLam = getELE("gioLam").value;
 
-    var nv = new NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam)
+    var isValid = true;
+    if (isValid) {
+        var nv = new NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam)
 
-    nv.TinhLuong();
-    nv.XepLoaiNV()
-    dsnv.themNV(nv);
-    hienThiDS(dsnv.mangNV);
-    setLocalStorage();
+        nv.TinhLuong();
+        nv.XepLoaiNV()
+        dsnv.themNV(nv);
+        hienThiDS(dsnv.mangNV);
+        setLocalStorage();
+        resetForm();
+    }
+
 
 
 }
@@ -51,7 +57,7 @@ function hienThiDS(mangNV) {
     mangNV.map(function (nv, index) {
         content += `
         <tr>
-            <td>${nv.taiKhoang}</td>
+            <td>${nv.taikhoang}</td>
             <td>${nv.tenNV}</td>
             <td>${nv.email}</td>
             <td>${nv.ngaylam}</td>
@@ -59,17 +65,19 @@ function hienThiDS(mangNV) {
             <td>${nv.tongLuong}</td>
             <td>${nv.xepLoai}</td>
             <td>
-            <button class="btn btn-info" onclick = "xemChiTiec('${nv.taiKhoang}')">Xem</button>
-            <button class="btn btn-danger" onclick="xoaNhanVien('${nv.taiKhoang}')">Xoá</button>
+            <button class="btn btn-info" onclick = "xemChiTiec('${nv.taikhoang}')">Xem</button>
+            <button class="btn btn-danger" onclick="xoaNhanVien('${nv.taikhoang}')">Xoá</button>
             </td>
         </tr>
         `;
     })
+    // console.log(content)
     getELE("tableDanhSach").innerHTML = content;
 }
 
 
 function xoaNhanVien(tknv) {
+    // console.log(tknv)
     dsnv.Xoa(tknv)
     hienThiDS(dsnv.mangNV);
     setLocalStorage(dsnv.mangNV);
@@ -82,6 +90,8 @@ function xemChiTiec(tknv) {
         var nvCanTim = dsnv.mangNV[viTri];
 
         getELE("tknv").value = nvCanTim.tk;
+        getELE("tknv").disabled = true;
+
         getELE("name").value = nvCanTim.tenNV;
         getELE("email").value = nvCanTim.email;
         getELE("password").value = nvCanTim.password;
@@ -90,4 +100,31 @@ function xemChiTiec(tknv) {
         getELE("chucvu").value = nvCanTim.chucvu;
         getELE("gioLam").value = nvCanTim.gioLam;
     }
+}
+
+
+function capNhatNhanVien() {
+    var tk = getELE("tknv").value;
+    var tenNV = getELE("name").value;
+    var email = getELE("email").value;
+    var password = getELE("password").value;
+    var ngaylam = getELE("datepicker").value;
+    var luongCB = getELE("luongCB").value;
+    var chucvu = getELE("chucvu").value;
+    var gioLam = getELE("gioLam").value;
+
+    var nv = new NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam)
+    nv.TinhLuong()
+    nv.XepLoaiNV()
+    dsnv.capNhat(nv)
+    hienThiDS(dsnv.mangNV)
+    console.log(nv)
+    setLocalStorage();
+    // resetForm();
+}
+
+
+function resetForm() {
+    getELE("formNV").reset();
+    getELE("tknv").disabled = false;
 }

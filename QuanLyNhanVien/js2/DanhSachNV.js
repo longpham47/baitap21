@@ -11,7 +11,7 @@ function DanhSachNV (){
     this.viTriNhanVien = function(tknv){
         var viTri = -1;
         this.mangNV.map(function(nv,index){
-            if(nv.taiKhoang === tknv){
+            if(nv.taikhoang === tknv){
                 viTri = index;
             }
         })
@@ -26,8 +26,8 @@ function DanhSachNV (){
         }
     }
     
-    this.capNhat = function(tknv){
-        var viTri = this.viTriNhanVien(tknv);
+    this.capNhat = function(nv){
+        var viTri = this.viTriNhanVien(nv.tk);
         if(viTri > -1){
             dsnv.mangNV[viTri] = nv;
 

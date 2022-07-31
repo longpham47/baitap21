@@ -3,7 +3,7 @@
 //! nhân viên
 
 function NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam) {
-    this.taiKhoang = tk;
+    this.taikhoang = tk;
     this.tenNV = tenNV;
     this.email = email;
     this.password = password;
