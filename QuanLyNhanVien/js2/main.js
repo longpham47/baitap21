@@ -1,7 +1,7 @@
 
 
 var dsnv = new DanhSachNV();
-// var validation = new Validation();
+var validation = new Validation();
 
 function getELE(id) {
     return document.getElementById(id);
@@ -35,6 +35,27 @@ function themNhanVien() {
     var gioLam = getELE("gioLam").value;
 
     var isValid = true;
+    isValid &= validation.checkEmpty(tk,"tbTKNV","tài khoảng không được đẻ trống")
+    && validation.checkID(tk,"tbTKNV","tài khoang không được trùng",dsnv.mangNV);
+
+    isValid &= validation.checkEmpty(tenNV, "tbTen", "TênNV không được để trống")
+    && validation.checkName(tenNV, "tbTen", "Tên NV chỉ được chứa ký tự chữ");
+    
+    isValid &= validation.checkEmpty(email, "tbEmail", "Email nv không được để trống")
+    && validation.checkEmail(email, "tbEmail", "Email nv chưa đúng định dạng");
+
+    isValid &= validation.checkEmpty(luongCB, "tbLuongCB", "lương cơ bảng không được để trống")
+    && validation.checkScore(luongCB, "tbLuongCB", "lương cơ bảng chưa đúng định dạng");
+
+    isValid &= validation.checkEmpty(password, "tbMatKhau", "Pass nv không được để trống")
+    && validation.checkPass(password, "tbMatKhau", "Pass cần ít nhất 1 chữ hoa, 1 chữ thường, 1 số, 1 ký tự đặc biệt, độ dài từ 6-8 ký tự");
+
+    isValid &= validation.checkEmpty(gioLam, "tbGiolam", "giờ làm không được để trống")
+    && validation.checkScore(gioLam, "tbGiolam", "giờ làm chưa đúng định dạng");
+
+    isValid &= validation.checkDropDown("chucvu", "tbChucVu", "chức vụ chưa được chọn");
+
+
     if (isValid) {
         var nv = new NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam)
 
@@ -113,13 +134,13 @@ function capNhatNhanVien() {
     var chucvu = getELE("chucvu").value;
     var gioLam = getELE("gioLam").value;
 
-    var nv = new NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam)
-    nv.TinhLuong()
-    nv.XepLoaiNV()
-    dsnv.capNhat(nv)
-    hienThiDS(dsnv.mangNV)
-    console.log(nv)
-    setLocalStorage();
+    var nv = new NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam);
+    nv.TinhLuong();
+    nv.XepLoaiNV();
+    dsnv.capNhat(nv);
+    hienThiDS(dsnv.mangNV);
+    console.log(nv);
+    setLocalStorage(dsnv.mangNV);
     // resetForm();
 }
 

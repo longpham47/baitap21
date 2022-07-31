@@ -22,8 +22,6 @@ function NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam) 
             this.tongLuong = this.luongCB * 2;
         }else if(this.chucvu == "Nhân viên"){
             this.tongLuong = this.luongCB;
-        }else{
-            alert("nhập lại ")
         }
     }
 
