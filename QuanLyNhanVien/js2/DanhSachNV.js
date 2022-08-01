@@ -15,6 +15,7 @@ function DanhSachNV (){
                 viTri = index;
             }
         })
+
         return viTri;
 
     }
@@ -27,7 +28,8 @@ function DanhSachNV (){
     }
     
     this.capNhat = function(nv){
-        var viTri = this.viTriNhanVien(nv.tk);
+        var viTri = this.viTriNhanVien(nv.taikhoang);
+        console.log(viTri)
         if(viTri > -1){
             dsnv.mangNV[viTri] = nv;
 

@@ -86,8 +86,8 @@ function hienThiDS(mangNV) {
             <td>${nv.tongLuong}</td>
             <td>${nv.xepLoai}</td>
             <td>
-            <button class="btn btn-info" onclick = "xemChiTiec('${nv.taikhoang}')">Xem</button>
-            <button class="btn btn-danger" onclick="xoaNhanVien('${nv.taikhoang}')">Xoá</button>
+            <button data-toggle="modal" data-target="#myModal" class="btn btn-info" onclick="xemChiTiec('${nv.taikhoang}')">Xem</button>
+            <button  class="btn btn-danger" onclick="xoaNhanVien('${nv.taikhoang}')">Xoá</button>
             </td>
         </tr>
         `;
@@ -110,7 +110,7 @@ function xemChiTiec(tknv) {
     if (viTri > -1) {
         var nvCanTim = dsnv.mangNV[viTri];
 
-        getELE("tknv").value = nvCanTim.tk;
+        getELE("tknv").value = nvCanTim.taikhoang;
         getELE("tknv").disabled = true;
 
         getELE("name").value = nvCanTim.tenNV;
@@ -136,12 +136,15 @@ function capNhatNhanVien() {
 
     var nv = new NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam);
     nv.TinhLuong();
+
     nv.XepLoaiNV();
+    console.log(nv)
     dsnv.capNhat(nv);
+    console.log(dsnv.mangNV);
     hienThiDS(dsnv.mangNV);
-    console.log(nv);
+    
     setLocalStorage(dsnv.mangNV);
-    // resetForm();
+    resetForm();
 }
 
 
