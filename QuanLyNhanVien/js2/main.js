@@ -45,16 +45,18 @@ function themNhanVien() {
     && validation.checkEmail(email, "tbEmail", "Email nv chưa đúng định dạng");
 
     isValid &= validation.checkEmpty(luongCB, "tbLuongCB", "lương cơ bảng không được để trống")
-    && validation.checkScore(luongCB, "tbLuongCB", "lương cơ bảng chưa đúng định dạng");
+    && validation.checkLuong(luongCB, "tbLuongCB", "lương cơ bảng chưa đúng định dạng");
 
     isValid &= validation.checkEmpty(password, "tbMatKhau", "Pass nv không được để trống")
     && validation.checkPass(password, "tbMatKhau", "Pass cần ít nhất 1 chữ hoa, 1 chữ thường, 1 số, 1 ký tự đặc biệt, độ dài từ 6-8 ký tự");
 
     isValid &= validation.checkEmpty(gioLam, "tbGiolam", "giờ làm không được để trống")
-    && validation.checkScore(gioLam, "tbGiolam", "giờ làm chưa đúng định dạng");
+    && validation.checkHour(gioLam, "tbGiolam", "giờ làm chưa đúng định dạng");
 
     isValid &= validation.checkDropDown("chucvu", "tbChucVu", "chức vụ chưa được chọn");
 
+   isValid &=validation.checkEmpty(ngaylam, "tbNgay", "ngày làm không được để trống") &&
+   validation.checkDay(ngaylam, "tbNgay","ngày lam chưa đúng đinh dạng dd/mm/yyyy")
 
     if (isValid) {
         var nv = new NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam)
@@ -149,6 +151,16 @@ function capNhatNhanVien() {
 
 
 function resetForm() {
-    getELE("formNV").reset();
+    getELE("formNV").reset();   
     getELE("tknv").disabled = false;
 }
+
+function timTheoLoai (){
+    tuKhoa = getELE("searchName").value;
+    var mangTk = dsnv.timkiem(tuKhoa.trim());
+
+    hienThiDS(mangTk);
+    
+}
+getELE("btnTimNV").onclick = timTheoLoai
+getELE("searchName").onkeyup =    timTheoLoai

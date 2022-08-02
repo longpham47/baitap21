@@ -15,7 +15,7 @@ function Validation() {
     this.checkID = function (inputVal, spanID, message, mangNV) {
         var isExist = false;
         isExist = mangNV.some(function (nv, index) {
-            return nv.tk === inputVal.replaceAll(" ","");
+            return nv.taikhoang === inputVal.replaceAll(" ","");
         });
         if(isExist){
             document.getElementById(spanID).innerHTML = message;
@@ -71,10 +71,24 @@ function Validation() {
         document.getElementById(spanID).style.display = "block";
         return false;
     }
-    this.checkScore= function(inputVal, spanID, message){
-        var pattern = /^(\d{1,2}(\.\d{1,2})?)$/;
+    this.checkLuong= function(inputVal, spanID, message){
+        var pattern = /^[0-9]+$/
 
-        if(inputVal.match(pattern) && 1e6 <= inputVal <= 2e7){
+        if(inputVal.match(pattern) &&  inputVal <= 2e7 && inputVal >= 1e6){
+            //hợp lệ
+            document.getElementById(spanID).innerHTML = "";
+            document.getElementById(spanID).style.display = "none";
+            return true;
+        }
+
+        document.getElementById(spanID).innerHTML = message;
+        document.getElementById(spanID).style.display = "block";
+        return false;
+    }
+    this.checkHour= function(inputVal, spanID, message){
+        var pattern = /^[0-9]+$/
+
+        if(inputVal.match(pattern) &&  inputVal <= 200 && inputVal >= 20){
             //hợp lệ
             document.getElementById(spanID).innerHTML = "";
             document.getElementById(spanID).style.display = "none";
@@ -93,6 +107,20 @@ function Validation() {
                 document.getElementById(spanID).innerHTML = "";
                 document.getElementById(spanID).style.display = "none";
                 return true;
+        }
+
+        document.getElementById(spanID).innerHTML = message;
+        document.getElementById(spanID).style.display = "block";
+        return false;
+    }
+    this.checkDay= function(inputVal, spanID, message){
+        var pattern = /^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$/
+
+        if(inputVal.match(pattern) ){
+            //hợp lệ
+            document.getElementById(spanID).innerHTML = "";
+            document.getElementById(spanID).style.display = "none";
+            return true;
         }
 
         document.getElementById(spanID).innerHTML = message;

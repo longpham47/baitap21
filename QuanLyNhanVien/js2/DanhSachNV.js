@@ -37,4 +37,17 @@ function DanhSachNV (){
 
     }
 
+   
+}
+
+
+DanhSachNV.prototype.timkiem = function(tuKhoa){
+    var mangTk = [];
+    this.mangNV.map(function(nv){
+        var viTriTk = nv.xepLoai.toLowerCase().indexOf(tuKhoa.toLowerCase());
+        if(viTriTk > -1){
+            mangTk.push(nv);
+        }
+    })
+        return mangTk;
 }

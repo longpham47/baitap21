@@ -27,15 +27,15 @@ function NhanVien(tk, tenNV, email, password, ngaylam, luongCB, chucvu, gioLam) 
 
     this.XepLoaiNV = function(){
         if(this.gioLam >= 192){
-            this.xepLoai =  "xuất sắc"
+            this.xepLoai =  " XS :xuất sắc"
 
         }else if(this.gioLam >= 176){
-           this.xepLoai = "giỏi"
+           this.xepLoai = " G :giỏi"
 
         }else if(this.gioLam >= 160){
-            this.xepLoai =  "khá"
+            this.xepLoai =  "K :khá"
         }else{
-            this.xepLoai = "trung bình"
+            this.xepLoai = " TB :trung bình"
         }
 
     }
